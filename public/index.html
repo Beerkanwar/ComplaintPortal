@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complaint Management System | NIT Jalandhar</title>
+  <meta name="description" content="Official complaint registration and tracking portal for Dr B R Ambedkar National Institute of Technology Jalandhar." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HEADER ═══════════════════════════════ -->
+<!-- Matches NITJ ERP: white background, logo left, institute name right -->
+<header class="nitj-header" id="main-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <img src="Logo_of_NIT_Jalandhar.png" alt="NIT Jalandhar Logo" class="nitj-logo" />
+    </div>
+    <div class="header-text">
+      <div class="header-hindi">डॉ बी आर अम्बेडकर राष्ट्रीय प्रौद्योगिकी संस्थान जालंधर</div>
+      <div class="header-sub-en">Dr B R Ambedkar</div>
+      <h1 class="header-title">National Institute of Technology Jalandhar</h1>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════ -->
+<!-- Matches NITJ ERP: dark navy bar with gold left border, ERP-NITJ label, nav links -->
+<nav class="nitj-navbar" id="main-navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand-erp">
+      <span class="erp-divider">|</span>
+      <span class="erp-label">ERP - NITJ</span>
+    </div>
+
+    <ul class="navbar-links">
+      <li>
+        <a href="#" class="nav-link-item active" onclick="showPanel('register'); setActiveNav(this); return false;">
+          <i class="bi bi-house-fill me-1"></i>Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link-item" onclick="showPanel('complaints'); setActiveNav(this); return false;">
+          <i class="bi bi-list-check me-1"></i>My Complaints
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link-item" onclick="showPanel('settings'); setActiveNav(this); return false;">
+          <i class="bi bi-gear me-1"></i>Settings
+        </a>
+      </li>
+    </ul>
+
+    <div class="navbar-right">
+      <div class="model-status-nav" id="model-status-nav">
+        <i class="bi bi-circle-fill status-dot-nav" id="status-dot"></i>
+        <span id="status-label">Checking model…</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ LAYOUT ════════════════════════════════ -->
+<div class="portal-layout">
+
+  <!-- ─────────────────────── SIDEBAR ─────────────────────── -->
+  <!-- Matches NITJ ERP: light blue sidebar with "Quick Links" heading -->
+  <aside class="portal-sidebar" id="sidebar">
+    <div class="sidebar-heading">Quick Links</div>
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-item active" id="nav-register"
+         onclick="showPanel('register'); setSidebarActive(this); return false;">
+        <i class="bi bi-pencil-square me-2"></i>Register Complaint
+      </a>
+      <a href="#" class="sidebar-item" id="nav-complaints"
+         onclick="showPanel('complaints'); setSidebarActive(this); return false;">
+        <i class="bi bi-list-ul me-2"></i>My Complaints
+        <span class="sidebar-badge" id="complaints-badge">0</span>
+      </a>
+      <a href="#" class="sidebar-item" id="nav-settings"
+         onclick="showPanel('settings'); setSidebarActive(this); return false;">
+        <i class="bi bi-gear me-2"></i>Model Settings
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─────────────────────── MAIN PANEL ─────────────────────── -->
+  <main class="portal-main" id="main-content">
+
+    <!-- ╔══════════ PANEL: REGISTER COMPLAINT ══════════╗ -->
+    <section class="panel" id="panel-register">
+
+      <div class="content-card-header">
+        <i class="bi bi-pencil-square me-2"></i>Register a New Complaint
+      </div>
+
+      <div class="content-card-body">
+
+        <!-- STEP 1: Input -->
+        <div class="form-section mb-4" id="step-input">
+          <div class="form-section-label">
+            <span class="step-num">STEP 1</span> — Describe Your Issue
+          </div>
+
+          <div class="mb-3">
+            <label for="complaint-input" class="nitj-label">
+              Enter your complaint in natural language <span class="text-danger">*</span>
+            </label>
+            <textarea
+              id="complaint-input"
+              class="form-control nitj-textarea"
+              rows="4"
+              placeholder="e.g., The fan in my room (Hostel B, Room 204) has stopped working since last night. The electricity supply seems fine but the fan does not rotate at all..."
+              maxlength="2000"
+            ></textarea>
+            <div class="d-flex justify-content-between align-items-center mt-1">
+              <small class="text-muted"><span id="char-count">0</span> / 2000 characters</small>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-nitj-secondary" id="btn-clear" onclick="clearInput()">
+              <i class="bi bi-x-circle me-1"></i>Clear
+            </button>
+            <button class="btn btn-nitj-primary btn-classify" id="btn-classify" onclick="classifyComplaint()">
+              <i class="bi bi-cpu me-2"></i>Classify Complaint
+              <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" id="classify-spinner"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Classification Result -->
+        <div id="classification-result" class="d-none">
+
+          <!-- Model / Confidence meta row -->
+          <div class="classify-meta-row mb-3" id="classify-meta">
+            <span class="meta-pill meta-model" id="meta-model-badge">
+              <i class="bi bi-cpu me-1"></i><span id="meta-model-name">-</span>
+            </span>
+            <span class="meta-pill meta-confidence" id="meta-confidence-pill">
+              <i class="bi bi-graph-up me-1"></i>Confidence: <strong id="meta-confidence">-</strong>
+            </span>
+            <span class="meta-pill meta-fallback d-none" id="fallback-pill">
+              <i class="bi bi-exclamation-triangle me-1"></i>Fallback Mode
+            </span>
+            <button class="btn btn-sm btn-nitj-reclassify ms-auto" id="btn-reclassify" onclick="reclassify()">
+              <i class="bi bi-arrow-clockwise me-1"></i>Re-classify
+            </button>
+          </div>
+
+          <!-- STEP 2 Form -->
+          <div class="form-section-label mb-3">
+            <span class="step-num step-num-success">STEP 2</span> — Review &amp; Edit Classification
+            <small class="text-muted ms-2">Review auto-filled fields and correct if needed.</small>
+          </div>
+
+          <form id="complaint-form" onsubmit="submitComplaint(event)" novalidate>
+            <div class="row g-3">
+
+              <!-- Complaint Type -->
+              <div class="col-md-4">
+                <label for="field-type" class="nitj-label">
+                  Complaint Type: <span class="text-danger">*</span>
+                </label>
+                <select id="field-type" class="form-select nitj-select" required>
+                  <option value="">Select Complaint Type</option>
+                  <option>Electricity</option>
+                  <option>Water Supply</option>
+                  <option>IT / Network</option>
+                  <option>Hostel</option>
+                  <option>Civil / Infrastructure</option>
+                  <option>Mess / Canteen</option>
+                  <option>Library</option>
+                  <option>Transport</option>
+                  <option>General</option>
+                </select>
+              </div>
+
+              <!-- Location -->
+              <div class="col-md-4">
+                <label for="field-location" class="nitj-label">
+                  Location: <span class="text-danger">*</span>
+                </label>
+                <select id="field-location" class="form-select nitj-select" required>
+                  <option value="">Select Location</option>
+                  <option>Hostel A</option>
+                  <option>Hostel B</option>
+                  <option>Hostel C</option>
+                  <option>Hostel D</option>
+                  <option>Main Building</option>
+                  <option>Library</option>
+                  <option>Laboratory</option>
+                  <option>Mess / Canteen</option>
+                  <option>Sports Ground</option>
+                  <option>Auditorium</option>
+                  <option>Campus (General)</option>
+                </select>
+              </div>
+
+              <!-- Priority -->
+              <div class="col-md-4">
+                <label for="field-priority" class="nitj-label">
+                  Priority: <span class="text-danger">*</span>
+                </label>
+                <select id="field-priority" class="form-select nitj-select" required>
+                  <option value="">Select Priority</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </div>
+
+              <!-- Summary -->
+              <div class="col-12">
+                <label for="field-summary" class="nitj-label">
+                  Auto-generated Summary:
+                </label>
+                <input
+                  type="text"
+                  id="field-summary"
+                  class="form-control nitj-input"
+                  placeholder="Auto-generated from model..."
+                  maxlength="200"
+                />
+              </div>
+
+              <!-- Full Description -->
+              <div class="col-12">
+                <label for="field-description" class="nitj-label">
+                  Complaint Description: <span class="text-danger">*</span>
+                </label>
+                <textarea
+                  id="field-description"
+                  class="form-control nitj-textarea"
+                  rows="4"
+                  placeholder="Full complaint text..."
+                  required
+                ></textarea>
+              </div>
+
+            </div>
+
+            <!-- Validation Alert -->
+            <div class="alert alert-danger mt-3 d-none" id="form-error" role="alert"></div>
+
+            <!-- Submit buttons -->
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button type="button" class="btn btn-nitj-secondary" onclick="resetForm()">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Start Over
+              </button>
+              <button type="submit" class="btn btn-nitj-submit" id="btn-submit">
+                <i class="bi bi-send-check me-2"></i>Submit Complaint
+                <span class="spinner-border spinner-border-sm ms-2 d-none" id="submit-spinner" role="status"></span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+        <!-- /classification-result -->
+
+        <!-- Success Message -->
+        <div id="success-card" class="d-none">
+          <div class="success-banner">
+            <div class="success-icon"><i class="bi bi-check-circle-fill"></i></div>
+            <h3>Complaint Submitted Successfully!</h3>
+            <p>Your complaint has been registered with ID <strong id="success-id">#-</strong>.</p>
+            <p class="text-muted small">Our team will review and respond shortly.</p>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+              <button class="btn btn-nitj-primary" onclick="registerAnother()">
+                <i class="bi bi-pencil-square me-2"></i>Register Another
+              </button>
+              <button class="btn btn-nitj-secondary" onclick="showPanel('complaints'); setSidebarActive(document.getElementById('nav-complaints'))">
+                <i class="bi bi-list-ul me-2"></i>View My Complaints
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content-card-body -->
+    </section>
+    <!-- ╚══════════════════════════════════════════════════╝ -->
+
+
+    <!-- ╔══════════ PANEL: MY COMPLAINTS ══════════╗ -->
+    <section class="panel d-none" id="panel-complaints">
+
+      <div class="content-card-header">
+        <i class="bi bi-list-ul me-2"></i>My Complaints
+        <button class="btn btn-sm btn-light ms-auto" onclick="loadComplaints()" style="font-size:0.78rem;">
+          <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+        </button>
+      </div>
+
+      <div class="content-card-body">
+        <!-- Filter bar -->
+        <div class="filter-bar mb-3">
+          <select class="form-select form-select-sm nitj-select" id="filter-type" onchange="renderComplaints()">
+            <option value="">All Types</option>
+            <option>Electricity</option>
+            <option>Water Supply</option>
+            <option>IT / Network</option>
+            <option>Hostel</option>
+            <option>Civil / Infrastructure</option>
+            <option>Mess / Canteen</option>
+            <option>Library</option>
+            <option>Transport</option>
+            <option>General</option>
+          </select>
+          <select class="form-select form-select-sm nitj-select" id="filter-priority" onchange="renderComplaints()">
+            <option value="">All Priorities</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+          <input
+            type="text"
+            class="form-control form-control-sm nitj-input"
+            id="filter-search"
+            placeholder="Search complaints..."
+            oninput="renderComplaints()"
+          />
+        </div>
+
+        <div id="complaints-list">
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>No complaints found. Register one to get started.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ╚══════════════════════════════════════════════════╝ -->
+
+
+    <!-- ╔══════════ PANEL: MODEL SETTINGS ══════════╗ -->
+    <section class="panel d-none" id="panel-settings">
+
+      <div class="content-card-header">
+        <i class="bi bi-gear me-2"></i>Model Settings
+      </div>
+
+      <div class="content-card-body">
+
+        <div class="form-section mb-4">
+          <div class="form-section-label mb-3">
+            <span class="step-num">ACTIVE CONFIGURATION</span>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="nitj-label mb-2">Model Mode:</label>
+              <div class="d-flex gap-3">
+                <div class="mode-card" id="mode-card-real" onclick="selectMode('real')">
+                  <i class="bi bi-cloud-arrow-up-fill mode-icon"></i>
+                  <div class="mode-label">Real ML Model</div>
+                  <div class="mode-desc">Calls your FastAPI / Flask server</div>
+                </div>
+                <div class="mode-card" id="mode-card-dummy" onclick="selectMode('dummy')">
+                  <i class="bi bi-robot mode-icon"></i>
+                  <div class="mode-label">Built-in Dummy</div>
+                  <div class="mode-desc">Keyword-based fallback classifier</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="setting-endpoint" class="nitj-label">ML Model Endpoint URL:</label>
+              <div class="input-group">
+                <span class="input-group-text nitj-input-group-text"><i class="bi bi-link-45deg"></i></span>
+                <input
+                  type="url"
+                  id="setting-endpoint"
+                  class="form-control nitj-input"
+                  value="http://localhost:8000/predict"
+                  placeholder="http://localhost:8000/predict"
+                />
+              </div>
+              <small class="text-muted">POST endpoint that accepts <code>{"text": "..."}</code> and returns structured JSON.</small>
+            </div>
+
+            <div class="col-12">
+              <div class="nitj-info-box">
+                <strong><i class="bi bi-info-circle me-1"></i>Expected response format:</strong>
+                <code class="d-block mt-1">
+                  { "complaint_type": "...", "location": "...", "priority": "...", "summary": "...", "confidence": 0.92 }
+                </code>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-nitj-primary" onclick="saveSettings()">
+                <i class="bi bi-save me-2"></i>Save &amp; Apply
+              </button>
+              <span class="ms-3 text-success small d-none" id="settings-saved-msg">
+                <i class="bi bi-check-circle me-1"></i>Saved!
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Test ping -->
+        <div class="form-section">
+          <div class="form-section-label mb-3">
+            <span class="step-num">TEST CONNECTION</span>
+          </div>
+          <label class="nitj-label">Test complaint text:</label>
+          <textarea
+            id="test-ping-text"
+            class="form-control nitj-textarea mb-2"
+            rows="2"
+            placeholder="Type a test complaint to ping the model..."
+          >The fan in Hostel B room 204 is not working since last night.</textarea>
+          <button class="btn btn-nitj-primary" onclick="testModelPing()">
+            <i class="bi bi-broadcast me-2"></i>Ping Model
+            <span class="spinner-border spinner-border-sm ms-2 d-none" id="ping-spinner" role="status"></span>
+          </button>
+          <pre id="ping-result" class="ping-result mt-3 d-none"></pre>
+        </div>
+
+      </div>
+    </section>
+    <!-- ╚══════════════════════════════════════════════════╝ -->
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════ -->
+<!-- Matches NITJ ERP: dark navy footer with copyright text -->
+<footer class="nitj-footer">
+  <div>Copyright 2026 © NIT Jalandhar</div>
+  <div>Developed by: Computer Centre, Dr. B.R. Ambedkar National Institute of Technology, Jalandhar</div>
+</footer>
+
+<!-- ─── Toast Notification ─── -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+  <div id="toast-msg" class="toast align-items-center border-0" role="alert" aria-live="assertive">
+    <div class="d-flex">
+      <div class="toast-body" id="toast-body"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

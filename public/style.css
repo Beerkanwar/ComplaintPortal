@@ -1,0 +1,841 @@
+/* ═══════════════════════════════════════════════════════════
+   NITJ COMPLAINT PORTAL — STYLESHEET (NITJ ERP Theme)
+   Matches: https://erp.nitj.ac.in style
+   Colors:  Navy #1a3a6e, Gold #e8a020, White content, Grey bg
+═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  /* NITJ Brand */
+  --nitj-navy:       #1a3a6e;
+  --nitj-navy-dark:  #0f2347;
+  --nitj-navy-mid:   #1e4080;
+  --nitj-gold:       #e8a020;
+  --nitj-gold-dark:  #c8861a;
+
+  /* ERP UI Colors */
+  --erp-header-bg:   #ffffff;
+  --erp-navbar-bg:   #1a3a6e;
+  --erp-sidebar-bg:  #d6e4f5;
+  --erp-content-bg:  #f0f4f8;
+  --erp-card-bg:     #ffffff;
+  --erp-card-header: #3d7ab5;    /* Blue card header — matches ERP */
+  --erp-border:      #c5d8ed;
+  --erp-input-bg:    #ffffff;
+  --erp-input-border:#aac0d8;
+  --erp-footer-bg:   #1a3a6e;
+
+  /* Text */
+  --text-dark:       #1a1a2e;
+  --text-body:       #2c3e50;
+  --text-muted:      #6c7a8e;
+  --text-white:      #ffffff;
+  --text-nav:        #d6e9ff;
+  --text-label:      #2c3e50;
+
+  /* Status */
+  --priority-high:   #dc3545;
+  --priority-mid:    #fd7e14;
+  --priority-low:    #28a745;
+
+  /* Sizing */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --sidebar-w: 230px;
+  --header-h:  90px;
+  --navbar-h:  42px;
+  --footer-h:  56px;
+
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.1);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.12);
+  --transition:  all 0.18s ease;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 14px;
+  background: var(--erp-content-bg);
+  color: var(--text-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { text-decoration: none; }
+
+/* ═══════════════════════════ HEADER ═══════════════════════════ */
+/* White background, NITJ logo left, institute name right — exact ERP match */
+.nitj-header {
+  background: var(--erp-header-bg);
+  border-bottom: 3px solid var(--nitj-gold);
+  height: var(--header-h);
+  flex-shrink: 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 100%;
+  padding: 0 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.nitj-logo {
+  height: 72px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.header-text {
+  flex: 1;
+  padding-left: 4px;
+}
+
+.header-hindi {
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.4;
+  font-family: 'Arial', sans-serif;
+}
+
+.header-sub-en {
+  font-size: 0.8rem;
+  color: #555;
+  font-style: italic;
+}
+
+.header-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--nitj-navy);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ═══════════════════════════ NAVBAR ═══════════════════════════ */
+/* Dark navy bar — matches ERP nav bar exactly */
+.nitj-navbar {
+  background: var(--erp-navbar-bg);
+  height: var(--navbar-h);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--nitj-navy-dark);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  gap: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* | ERP - NITJ | yellow-bordered left section */
+.navbar-brand-erp {
+  display: flex;
+  align-items: center;
+  padding-right: 18px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  margin-right: 4px;
+}
+
+.erp-divider {
+  color: var(--nitj-gold);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.erp-label {
+  color: var(--text-white);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Nav links */
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.navbar-links li {
+  height: 100%;
+}
+
+.nav-link-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  color: var(--text-nav);
+  font-size: 0.855rem;
+  font-weight: 500;
+  transition: var(--transition);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.nav-link-item:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-bottom-color: var(--nitj-gold);
+}
+
+.nav-link-item.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-bottom-color: var(--nitj-gold);
+}
+
+/* Model status — right side of navbar */
+.navbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.model-status-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  color: var(--text-nav);
+  white-space: nowrap;
+}
+
+.status-dot-nav {
+  font-size: 0.45rem;
+}
+
+.status-dot-nav.online  { color: #5eff8a; animation: pulse-dot 2s ease-in-out infinite; }
+.status-dot-nav.offline { color: #ff6b6b; }
+.status-dot-nav.dummy   { color: #ffd166; animation: pulse-dot 2s ease-in-out infinite; }
+.status-dot-nav.checking { color: #aaa; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ═══════════════════════════ LAYOUT ════════════════════════════ */
+.portal-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════ SIDEBAR ═══════════════════════════ */
+/* Light blue sidebar — matches ERP exactly */
+.portal-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--erp-sidebar-bg);
+  border-right: 1px solid var(--erp-border);
+  padding: 16px 0;
+  min-height: calc(100vh - var(--header-h) - var(--navbar-h) - var(--footer-h));
+}
+
+.sidebar-heading {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--nitj-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 16px 10px;
+  border-bottom: 1px solid var(--erp-border);
+  margin-bottom: 8px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 10px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--nitj-navy);
+  font-size: 0.855rem;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.sidebar-item i {
+  font-size: 0.9rem;
+}
+
+.sidebar-item:hover {
+  background: rgba(26,58,110,0.1);
+  color: var(--nitj-navy-dark);
+}
+
+/* Active state — solid navy button (matches ERP "Register Complaint" button) */
+.sidebar-item.active {
+  background: var(--nitj-navy);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar-item.active:hover {
+  background: var(--nitj-navy-dark);
+  color: #fff;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  background: var(--nitj-gold);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 20px;
+}
+
+/* ═══════════════════════════ MAIN PANEL ════════════════════════ */
+.portal-main {
+  flex: 1;
+  padding: 20px 24px;
+  overflow-y: auto;
+  background: var(--erp-content-bg);
+}
+
+/* ─── Panel animation ─── */
+.panel {
+  display: block;
+  animation: fadeInPanel 0.2s ease;
+}
+
+@keyframes fadeInPanel {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Content Card ─── */
+/* Matches ERP: blue header bar + white body */
+.content-card-header {
+  background: var(--erp-card-header);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.content-card-body {
+  background: var(--erp-card-bg);
+  border: 1px solid var(--erp-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 20px;
+}
+
+/* ─── Form Section ─── */
+.form-section {
+  background: #f8fbff;
+  border: 1px solid #d0e4f4;
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.form-section-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--nitj-navy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.step-num {
+  background: var(--nitj-navy);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.07em;
+}
+
+.step-num-success {
+  background: #28a745;
+}
+
+/* ─── Labels ─── */
+.nitj-label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-label);
+  margin-bottom: 5px;
+}
+
+/* ─── Form Controls ─── */
+.nitj-textarea,
+.nitj-input,
+.nitj-select {
+  background: var(--erp-input-bg) !important;
+  border: 1px solid var(--erp-input-border) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-body) !important;
+  font-family: 'Open Sans', Arial, sans-serif !important;
+  font-size: 0.855rem !important;
+  transition: var(--transition);
+}
+
+.nitj-textarea:focus,
+.nitj-input:focus,
+.nitj-select:focus {
+  border-color: var(--nitj-navy) !important;
+  box-shadow: 0 0 0 2px rgba(26,58,110,0.15) !important;
+  outline: none !important;
+}
+
+.nitj-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ─── Buttons ─── */
+.btn-nitj-primary {
+  background: var(--nitj-navy);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.855rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: var(--transition);
+}
+
+.btn-nitj-primary:hover {
+  background: var(--nitj-navy-dark);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(26,58,110,0.3);
+}
+
+.btn-nitj-secondary {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.855rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: var(--transition);
+}
+
+.btn-nitj-secondary:hover {
+  background: #5a6268;
+  color: #fff;
+}
+
+/* Submit button — coral/red-orange like ERP "Submit Complaint" */
+.btn-nitj-submit {
+  background: #e05a2b;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 9px 28px;
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(224,90,43,0.3);
+}
+
+.btn-nitj-submit:hover {
+  background: #c44e24;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(224,90,43,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-nitj-reclassify {
+  background: var(--nitj-gold);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  transition: var(--transition);
+}
+
+.btn-nitj-reclassify:hover {
+  background: var(--nitj-gold-dark);
+  color: #fff;
+}
+
+.btn-classify {
+  min-width: 190px;
+}
+
+/* ─── Classification meta row ─── */
+.classify-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: #f0f6ff;
+  border: 1px solid #c5d8ed;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.meta-model {
+  background: var(--nitj-navy);
+  color: #fff;
+}
+
+.meta-confidence {
+  background: #28a745;
+  color: #fff;
+}
+
+.meta-fallback {
+  background: #fd7e14;
+  color: #fff;
+}
+
+/* ─── Info box ─── */
+.nitj-info-box {
+  background: #e8f0fd;
+  border: 1px solid #b8cff9;
+  border-left: 4px solid var(--nitj-navy);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--nitj-navy-dark);
+}
+
+.nitj-info-box code {
+  background: rgba(26,58,110,0.08);
+  color: var(--nitj-navy-dark);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ─── Input group ─── */
+.nitj-input-group-text {
+  background: #e8eef5 !important;
+  border: 1px solid var(--erp-input-border) !important;
+  color: var(--text-muted) !important;
+}
+
+/* ─── Success Banner ─── */
+.success-banner {
+  background: linear-gradient(135deg, #e8f5e9, #f1f8f0);
+  border: 1px solid #a5d6a7;
+  border-left: 5px solid #28a745;
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  text-align: center;
+  animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.93); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: #28a745;
+  margin-bottom: 14px;
+}
+
+.success-banner h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════ COMPLAINTS PANEL ══════════════════ */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #f0f6ff;
+  border: 1px solid var(--erp-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.filter-bar .nitj-select,
+.filter-bar .nitj-input {
+  max-width: 200px;
+}
+
+/* ─── Complaint Card ─── */
+.complaint-card {
+  background: var(--erp-card-bg);
+  border: 1px solid var(--erp-border);
+  border-left: 4px solid var(--nitj-navy);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  transition: var(--transition);
+  animation: slideIn 0.22s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.complaint-card:hover {
+  border-left-color: var(--nitj-gold);
+  box-shadow: var(--shadow-card);
+  transform: translateX(2px);
+}
+
+.complaint-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.complaint-id {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: monospace;
+  background: #f0f4f8;
+  padding: 1px 7px;
+  border-radius: 3px;
+  border: 1px solid #dde3ea;
+}
+
+.complaint-type-badge {
+  background: var(--nitj-navy);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.priority-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.priority-badge.high   { background: var(--priority-high); }
+.priority-badge.medium { background: var(--priority-mid); }
+.priority-badge.low    { background: var(--priority-low); }
+
+.status-badge {
+  margin-left: auto;
+  background: #e8f0fe;
+  border: 1px solid #c5d8f8;
+  color: var(--nitj-navy);
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.complaint-summary {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.complaint-meta-row {
+  display: flex;
+  gap: 14px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.complaint-meta-row i { margin-right: 3px; }
+
+/* ─── Empty State ─── */
+.empty-state {
+  text-align: center;
+  padding: 50px 24px;
+  color: var(--text-muted);
+  background: #f8fbff;
+  border: 1px dashed var(--erp-border);
+  border-radius: var(--radius-md);
+}
+
+.empty-state i {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+  opacity: 0.45;
+}
+
+/* ═══════════════════════════ SETTINGS PANEL ════════════════════ */
+.mode-card {
+  flex: 1;
+  background: #f0f6ff;
+  border: 2px solid var(--erp-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mode-card:hover {
+  border-color: var(--nitj-navy);
+  background: #e8f0fa;
+}
+
+.mode-card.active {
+  border-color: var(--nitj-navy);
+  background: #ddeeff;
+  box-shadow: 0 2px 8px rgba(26,58,110,0.18);
+}
+
+.mode-icon {
+  font-size: 1.8rem;
+  color: var(--nitj-navy);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.mode-label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--nitj-navy);
+  margin-bottom: 3px;
+}
+
+.mode-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.ping-result {
+  background: #f3f7fd;
+  border: 1px solid var(--erp-border);
+  border-left: 3px solid var(--nitj-navy);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.78rem;
+  color: #1a3a6e;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+/* ═══════════════════════════ ALERTS ════════════════════════════ */
+.alert {
+  border-radius: var(--radius-sm) !important;
+  font-size: 0.83rem !important;
+}
+
+/* ═══════════════════════════ FOOTER ════════════════════════════ */
+/* Dark navy footer — exact ERP match */
+.nitj-footer {
+  background: var(--erp-footer-bg);
+  color: rgba(255,255,255,0.85);
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  border-top: 3px solid var(--nitj-gold);
+  line-height: 1.8;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════ TOAST ═════════════════════════════ */
+.toast {
+  border-radius: var(--radius-md) !important;
+  font-size: 0.875rem !important;
+  min-width: 260px;
+}
+
+/* ═══════════════════════════ UTILITIES ═════════════════════════ */
+.text-muted { color: var(--text-muted) !important; }
+
+code {
+  background: rgba(26,58,110,0.07) !important;
+  color: var(--nitj-navy-dark) !important;
+  padding: 1px 5px !important;
+  border-radius: 3px !important;
+  font-size: 0.82em !important;
+}
+
+/* ═══════════════════════════ RESPONSIVE ════════════════════════ */
+@media (max-width: 900px) {
+  .portal-sidebar {
+    width: 180px;
+  }
+  .sidebar-item span { font-size: 0.8rem; }
+}
+
+@media (max-width: 700px) {
+  .portal-layout { flex-direction: column; }
+  .portal-sidebar {
+    width: 100%;
+    min-height: unset;
+    padding: 10px;
+    border-right: none;
+    border-bottom: 1px solid var(--erp-border);
+  }
+  .sidebar-nav { flex-direction: row; gap: 6px; }
+  .sidebar-heading { display: none; }
+  .portal-main { padding: 12px; }
+  .header-title { font-size: 1.1rem; }
+  .header-hindi { display: none; }
+  .nitj-logo { height: 52px; }
+  .filter-bar .nitj-select, .filter-bar .nitj-input { max-width: 100%; }
+}
