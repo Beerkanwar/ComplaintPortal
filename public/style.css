@@ -1,33 +1,24 @@
-/* ═══════════════════════════════════════════════════════════
-   NITJ COMPLAINT PORTAL — STYLESHEET (NITJ ERP Theme)
-   Matches: https://erp.nitj.ac.in style
-   Colors:  Navy #1a3a6e, Gold #e8a020, White content, Grey bg
-═══════════════════════════════════════════════════════════ */
-
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
 /* ── CSS Variables ── */
 :root {
-  /* NITJ Brand */
   --nitj-navy:       #1a3a6e;
   --nitj-navy-dark:  #0f2347;
   --nitj-navy-mid:   #1e4080;
   --nitj-gold:       #e8a020;
   --nitj-gold-dark:  #c8861a;
 
-  /* ERP UI Colors */
   --erp-header-bg:   #ffffff;
   --erp-navbar-bg:   #1a3a6e;
   --erp-sidebar-bg:  #d6e4f5;
   --erp-content-bg:  #f0f4f8;
   --erp-card-bg:     #ffffff;
-  --erp-card-header: #3d7ab5;    /* Blue card header — matches ERP */
+  --erp-card-header: #3d7ab5;
   --erp-border:      #c5d8ed;
   --erp-input-bg:    #ffffff;
   --erp-input-border:#aac0d8;
   --erp-footer-bg:   #1a3a6e;
 
-  /* Text */
   --text-dark:       #1a1a2e;
   --text-body:       #2c3e50;
   --text-muted:      #6c7a8e;
@@ -70,7 +61,6 @@ html, body {
 a { text-decoration: none; }
 
 /* ═══════════════════════════ HEADER ═══════════════════════════ */
-/* White background, NITJ logo left, institute name right — exact ERP match */
 .nitj-header {
   background: var(--erp-header-bg);
   border-bottom: 3px solid var(--nitj-gold);
@@ -123,7 +113,6 @@ a { text-decoration: none; }
 }
 
 /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
-/* Dark navy bar — matches ERP nav bar exactly */
 .nitj-navbar {
   background: var(--erp-navbar-bg);
   height: var(--navbar-h);
@@ -142,7 +131,6 @@ a { text-decoration: none; }
   margin: 0 auto;
 }
 
-/* | ERP - NITJ | yellow-bordered left section */
 .navbar-brand-erp {
   display: flex;
   align-items: center;
@@ -249,7 +237,6 @@ a { text-decoration: none; }
 }
 
 /* ═══════════════════════════ SIDEBAR ═══════════════════════════ */
-/* Light blue sidebar — matches ERP exactly */
 .portal-sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
@@ -298,7 +285,6 @@ a { text-decoration: none; }
   color: var(--nitj-navy-dark);
 }
 
-/* Active state — solid navy button (matches ERP "Register Complaint" button) */
 .sidebar-item.active {
   background: var(--nitj-navy);
   color: #fff;
@@ -340,7 +326,6 @@ a { text-decoration: none; }
 }
 
 /* ─── Content Card ─── */
-/* Matches ERP: blue header bar + white body */
 .content-card-header {
   background: var(--erp-card-header);
   color: #fff;
@@ -464,7 +449,6 @@ a { text-decoration: none; }
   color: #fff;
 }
 
-/* Submit button — coral/red-orange like ERP "Submit Complaint" */
 .btn-nitj-submit {
   background: #e05a2b;
   color: #fff;
@@ -784,7 +768,6 @@ a { text-decoration: none; }
 }
 
 /* ═══════════════════════════ FOOTER ════════════════════════════ */
-/* Dark navy footer — exact ERP match */
 .nitj-footer {
   background: var(--erp-footer-bg);
   color: rgba(255,255,255,0.85);

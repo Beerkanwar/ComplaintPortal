@@ -20,8 +20,6 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════ HEADER ═══════════════════════════════ -->
-<!-- Matches NITJ ERP: white background, logo left, institute name right -->
 <header class="nitj-header" id="main-header">
   <div class="header-inner">
     <div class="header-logo">
@@ -35,8 +33,6 @@
   </div>
 </header>
 
-<!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════ -->
-<!-- Matches NITJ ERP: dark navy bar with gold left border, ERP-NITJ label, nav links -->
 <nav class="nitj-navbar" id="main-navbar">
   <div class="navbar-inner">
     <div class="navbar-brand-erp">
@@ -71,11 +67,8 @@
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════ LAYOUT ════════════════════════════════ -->
 <div class="portal-layout">
 
-  <!-- ─────────────────────── SIDEBAR ─────────────────────── -->
-  <!-- Matches NITJ ERP: light blue sidebar with "Quick Links" heading -->
   <aside class="portal-sidebar" id="sidebar">
     <div class="sidebar-heading">Quick Links</div>
     <nav class="sidebar-nav">
@@ -95,10 +88,8 @@
     </nav>
   </aside>
 
-  <!-- ─────────────────────── MAIN PANEL ─────────────────────── -->
   <main class="portal-main" id="main-content">
 
-    <!-- ╔══════════ PANEL: REGISTER COMPLAINT ══════════╗ -->
     <section class="panel" id="panel-register">
 
       <div class="content-card-header">
@@ -107,7 +98,6 @@
 
       <div class="content-card-body">
 
-        <!-- STEP 1: Input -->
         <div class="form-section mb-4" id="step-input">
           <div class="form-section-label">
             <span class="step-num">STEP 1</span> — Describe Your Issue
@@ -140,10 +130,8 @@
           </div>
         </div>
 
-        <!-- STEP 2: Classification Result -->
         <div id="classification-result" class="d-none">
 
-          <!-- Model / Confidence meta row -->
           <div class="classify-meta-row mb-3" id="classify-meta">
             <span class="meta-pill meta-model" id="meta-model-badge">
               <i class="bi bi-cpu me-1"></i><span id="meta-model-name">-</span>
@@ -159,7 +147,6 @@
             </button>
           </div>
 
-          <!-- STEP 2 Form -->
           <div class="form-section-label mb-3">
             <span class="step-num step-num-success">STEP 2</span> — Review &amp; Edit Classification
             <small class="text-muted ms-2">Review auto-filled fields and correct if needed.</small>
@@ -168,7 +155,6 @@
           <form id="complaint-form" onsubmit="submitComplaint(event)" novalidate>
             <div class="row g-3">
 
-              <!-- Complaint Type -->
               <div class="col-md-4">
                 <label for="field-type" class="nitj-label">
                   Complaint Type: <span class="text-danger">*</span>
@@ -187,7 +173,6 @@
                 </select>
               </div>
 
-              <!-- Location -->
               <div class="col-md-4">
                 <label for="field-location" class="nitj-label">
                   Location: <span class="text-danger">*</span>
@@ -208,7 +193,6 @@
                 </select>
               </div>
 
-              <!-- Priority -->
               <div class="col-md-4">
                 <label for="field-priority" class="nitj-label">
                   Priority: <span class="text-danger">*</span>
@@ -221,7 +205,6 @@
                 </select>
               </div>
 
-              <!-- Summary -->
               <div class="col-12">
                 <label for="field-summary" class="nitj-label">
                   Auto-generated Summary:
@@ -235,7 +218,6 @@
                 />
               </div>
 
-              <!-- Full Description -->
               <div class="col-12">
                 <label for="field-description" class="nitj-label">
                   Complaint Description: <span class="text-danger">*</span>
@@ -251,10 +233,8 @@
 
             </div>
 
-            <!-- Validation Alert -->
             <div class="alert alert-danger mt-3 d-none" id="form-error" role="alert"></div>
 
-            <!-- Submit buttons -->
             <div class="d-flex justify-content-center gap-3 mt-4">
               <button type="button" class="btn btn-nitj-secondary" onclick="resetForm()">
                 <i class="bi bi-arrow-counterclockwise me-1"></i>Start Over
@@ -267,9 +247,7 @@
           </form>
 
         </div>
-        <!-- /classification-result -->
 
-        <!-- Success Message -->
         <div id="success-card" class="d-none">
           <div class="success-banner">
             <div class="success-icon"><i class="bi bi-check-circle-fill"></i></div>
@@ -287,12 +265,10 @@
           </div>
         </div>
 
-      </div><!-- /content-card-body -->
+      </div>
     </section>
-    <!-- ╚══════════════════════════════════════════════════╝ -->
 
 
-    <!-- ╔══════════ PANEL: MY COMPLAINTS ══════════╗ -->
     <section class="panel d-none" id="panel-complaints">
 
       <div class="content-card-header">
@@ -303,7 +279,6 @@
       </div>
 
       <div class="content-card-body">
-        <!-- Filter bar -->
         <div class="filter-bar mb-3">
           <select class="form-select form-select-sm nitj-select" id="filter-type" onchange="renderComplaints()">
             <option value="">All Types</option>
@@ -340,10 +315,8 @@
         </div>
       </div>
     </section>
-    <!-- ╚══════════════════════════════════════════════════╝ -->
 
 
-    <!-- ╔══════════ PANEL: MODEL SETTINGS ══════════╗ -->
     <section class="panel d-none" id="panel-settings">
 
       <div class="content-card-header">
@@ -409,7 +382,6 @@
           </div>
         </div>
 
-        <!-- Test ping -->
         <div class="form-section">
           <div class="form-section-label mb-3">
             <span class="step-num">TEST CONNECTION</span>
@@ -430,19 +402,15 @@
 
       </div>
     </section>
-    <!-- ╚══════════════════════════════════════════════════╝ -->
 
   </main>
 </div>
 
-<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════ -->
-<!-- Matches NITJ ERP: dark navy footer with copyright text -->
 <footer class="nitj-footer">
   <div>Copyright 2026 © NIT Jalandhar</div>
   <div>Developed by: Computer Centre, Dr. B.R. Ambedkar National Institute of Technology, Jalandhar</div>
 </footer>
 
-<!-- ─── Toast Notification ─── -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999">
   <div id="toast-msg" class="toast align-items-center border-0" role="alert" aria-live="assertive">
     <div class="d-flex">

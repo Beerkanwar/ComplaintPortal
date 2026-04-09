@@ -98,16 +98,14 @@ TYPE_RULES = [
 ]
 
 LOCATION_RULES = [
-    (["hostel a", "block a"],         "Hostel A"),
-    (["hostel b", "block b"],         "Hostel B"),
-    (["hostel c", "block c"],         "Hostel C"),
-    (["hostel d", "block d"],         "Hostel D"),
+    (["hostel a", "block a", "a block"],         "Hostel A"),
+    (["hostel b", "block b", "b block"],         "Hostel B"),
+    (["hostel c", "block c", "c block"],         "Hostel C"),
+    (["hostel d", "block d", "d block"],         "Hostel D"),
     (["main building", "admin"],      "Main Building"),
     (["library"],                     "Library"),
-    (["lab", "laboratory", "workshop"], "Laboratory"),
     (["canteen", "mess", "dining"],   "Mess / Canteen"),
     (["ground", "sports", "field"],   "Sports Ground"),
-    (["auditorium", "seminar"],       "Auditorium"),
 ]
 
 PRIORITY_RULES = [
@@ -119,9 +117,6 @@ PRIORITY_RULES = [
 
 
 def rule_based_classify(text: str) -> PredictResponse:
-    """
-    ⚠️  DUMMY IMPLEMENTATION — Replace with your real ML model here.
-    """
     lower = text.lower()
 
     # Type

@@ -1,8 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   NITJ COMPLAINT PORTAL — FRONTEND JAVASCRIPT
-   All API calls go through Node.js backend, which calls ML model.
-═══════════════════════════════════════════════════════════════ */
-
 'use strict';
 
 // ─── State ────────────────────────────────────────────────────────────────────

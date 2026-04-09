@@ -53,7 +53,6 @@ function dummyClassify(text) {
     { keywords: ['hostel d', 'block d', 'd block'], loc: 'Hostel D' },
     { keywords: ['main building', 'admin', 'administrative', 'office'], loc: 'Main Building' },
     { keywords: ['library'], loc: 'Library' },
-    { keywords: ['lab', 'laboratory', 'computer lab', 'workshop'], loc: 'Laboratory' },
     { keywords: ['canteen', 'mess', 'dining hall'], loc: 'Mess / Canteen' },
     { keywords: ['ground', 'sports', 'field', 'playground'], loc: 'Sports Ground' },
     { keywords: ['auditorium', 'seminar', 'hall'], loc: 'Auditorium' },
