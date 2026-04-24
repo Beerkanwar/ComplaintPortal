@@ -20,6 +20,8 @@ POST /predict
 import re
 import time
 import random
+import joblib
+import traceback
 from typing import Optional
 
 try:
@@ -167,6 +169,50 @@ def rule_based_classify(text: str) -> PredictResponse:
 #     import joblib
 #     real_model = joblib.load("your_model.pkl")
 #     print("[ML] Model loaded ✓")
+# ─── REAL MODEL LOADER ────────────────────────────────────────────────────────
+vectorizer = None
+model_type = None
+model_loc = None
+model_pri = None
+
+@app.on_event("startup")
+async def load_models():
+    global vectorizer, model_type, model_loc, model_pri
+    try:
+        # Ensure these 4 files are in the exact same folder as model_server.py
+        vectorizer = joblib.load("tfidf_vectorizer.joblib")
+        model_type = joblib.load("model_complaint_type.joblib")
+        model_loc = joblib.load("model_location.joblib")
+        model_pri = joblib.load("model_priority.joblib")
+        print("\n[ML] Real Models & Vectorizer loaded successfully! ✓")
+    except Exception as e:
+        print(f"\n[ERROR] Could not load ML models: {e}")
+        print("Falling back to dummy rules.\n")
+
+def ml_classify(text: str) -> PredictResponse:
+    # 1. Clean and vectorize the input
+    # (Using a simple lower() here to match our Colab cleaning, vectorizer handles the rest)
+    X_input = vectorizer.transform([text.lower()])
+
+    # 2. Predict using all three models
+    pred_type = model_type.predict(X_input)[0]
+    pred_loc = model_loc.predict(X_input)[0]
+    pred_pri = model_pri.predict(X_input)[0]
+
+    # 3. Get confidence score (Using Complaint Type probability as proxy)
+    confidence = round(float(model_type.predict_proba(X_input).max()), 4)
+
+    # 4. Generate summary
+    words = re.split(r"\s+", text.strip())
+    summary = " ".join(words[:12]) + ("..." if len(words) > 12 else "")
+
+    return PredictResponse(
+        complaint_type=pred_type,
+        location=pred_loc,
+        priority=pred_pri,
+        summary=summary,
+        confidence=confidence
+    )
 
 
 # ─── Routes ───────────────────────────────────────────────────────────────────
@@ -185,6 +231,34 @@ def health():
     return {"status": "ok", "model": "dummy-rules"}
 
 
+# @app.post("/predict", response_model=PredictResponse)
+# def predict(req: PredictRequest):
+#     text = req.text.strip()
+
+#     if not text or len(text) < 3:
+#         raise HTTPException(status_code=400, detail="Text is too short.")
+
+#     start = time.perf_counter()
+#     result = rule_based_classify(text)
+
+#     # --- Replace above line with real model call if available ---
+#     # if real_model:
+#     #     label = real_model.predict([text])[0]
+#     #     proba = float(real_model.predict_proba([text]).max())
+#     #     result = PredictResponse(
+#     #         complaint_type=label,
+#     #         location="Campus (General)",   # extract or default
+#     #         priority="Medium",             # extract or default
+#     #         summary=text[:80],
+#     #         confidence=proba,
+#     #     )
+#     # else:
+#     #     result = rule_based_classify(text)
+
+#     elapsed_ms = round((time.perf_counter() - start) * 1000, 2)
+#     result.processing_time_ms = elapsed_ms
+
+#     return result
 @app.post("/predict", response_model=PredictResponse)
 def predict(req: PredictRequest):
     text = req.text.strip()
@@ -193,26 +267,19 @@ def predict(req: PredictRequest):
         raise HTTPException(status_code=400, detail="Text is too short.")
 
     start = time.perf_counter()
-    result = rule_based_classify(text)
-
-    # --- Replace above line with real model call if available ---
-    # if real_model:
-    #     label = real_model.predict([text])[0]
-    #     proba = float(real_model.predict_proba([text]).max())
-    #     result = PredictResponse(
-    #         complaint_type=label,
-    #         location="Campus (General)",   # extract or default
-    #         priority="Medium",             # extract or default
-    #         summary=text[:80],
-    #         confidence=proba,
-    #     )
-    # else:
-    #     result = rule_based_classify(text)
+    
+    # Try using the real ML models first
+    if vectorizer and model_type and model_loc and model_pri:
+        result = ml_classify(text)
+    else:
+        # Fallback if models are missing
+        result = rule_based_classify(text)
 
     elapsed_ms = round((time.perf_counter() - start) * 1000, 2)
     result.processing_time_ms = elapsed_ms
 
     return result
+
 
 
 # ─── Run directly ─────────────────────────────────────────────────────────────

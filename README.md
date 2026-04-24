@@ -36,7 +36,7 @@ node server.js
 
 ```bash
 pip install fastapi uvicorn
-python model_server.py
+python3 model_server.py
 # → http://localhost:8000
 ```
 
